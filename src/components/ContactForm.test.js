@@ -8,6 +8,20 @@ test('renders without errors', () => {
     render(<ContactForm />);
 });
 
+describe('Contact Form', () => {
+    beforeEach(() => {
+        render(<ContactForm />);
+    })
+
+    it('should render the header', () => {
+        const headerEl = screen.queryByText(/Contact Form/i);
+        expect(headerEl).toBeInTheDocument();
+        expect(headerEl).toBeTruthy();
+        expect(headerEl).toHaveTextContent(/contact form/i);
+    });
+
+})
+
 test('renders the contact form header', () => {
     render(<ContactForm />);
     const headerEl = screen.queryByText(/Contact Form/i);
@@ -137,6 +151,19 @@ test('renders all fields text when all fields are submitted.', async () => {
 
 test('renders all input tittles', () => {
     render(<ContactForm />);
+
+    const fields = [
+        /First Name*/i,
+        /Last Name*/i,
+        /Email*/i,
+        /Message/i
+    ];
+
+    for (let field of fields) {
+        const title = screen.queryByText(field);
+        expect(title).toBeInTheDocument();
+    }
+
     const titleFname = screen.queryByText(/First Name*/i);
     const titleLname = screen.queryByText(/Last Name*/i);
     const titleEmail = screen.queryByText(/Email*/i);
