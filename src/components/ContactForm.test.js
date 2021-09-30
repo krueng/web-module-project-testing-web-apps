@@ -17,13 +17,17 @@ test('renders the contact form header', () => {
 });
 
 test('renders ONE error message if user enters less then 5 characters into firstname.', async () => {
-    //     render(<ContactForm />);
-    //    const fname = screen.getByPlaceholderText(/Edd/i);
-    //    userEvent.type(fname, 'd')
+    render(<ContactForm />);
+    const fname = screen.getByPlaceholderText(/Edd/i);
+    userEvent.type(fname, 'd')
+    // const btn = screen.getByRole('button');
+    // userEvent.click(btn);
 
-    //    const fnameError = await screen.queryByText('Error: firstName must have at least 5 characters.')
-    //    expect(fnameError).toBeInTheDocument();
-});
+    const fnameError = await screen.queryByText('Error: firstName must have at least 5 characters.')
+    expect(fnameError).toBeInTheDocument();
+}
+
+);
 
 test('renders THREE error messages if user enters no values into any fields.', async () => {
     // render(<ContactForm />);
