@@ -20,8 +20,8 @@ test('renders ONE error message if user enters less then 5 characters into first
     render(<ContactForm />);
     const fname = screen.getByPlaceholderText(/Edd/i);
     userEvent.type(fname, 'd')
-    // const btn = screen.getByRole('button');
-    // userEvent.click(btn);
+    const btn = screen.getByRole('button');
+    userEvent.click(btn);
 
     const fnameError = await screen.queryByText('Error: firstName must have at least 5 characters.')
     expect(fnameError).toBeInTheDocument();
@@ -30,13 +30,23 @@ test('renders ONE error message if user enters less then 5 characters into first
 );
 
 test('renders THREE error messages if user enters no values into any fields.', async () => {
-    // render(<ContactForm />);
-    // const fname = screen.getByPlaceholderText(/Edd/i);
-    // userEvent.type(fname, '')
-    // const lname = screen.getByPlaceholderText(/burke/i);
-    // userEvent.type(lname, '')
-    // const email = screen.getByPlaceholderText(/bluebill1049@hotmail.com/i);
-    // userEvent.type(email, '')
+    render(<ContactForm />);
+    const fname = screen.getByPlaceholderText(/Edd/i);
+    userEvent.type(fname, '')
+    const lname = screen.getByPlaceholderText(/burke/i);
+    userEvent.type(lname, '')
+    const email = screen.getByPlaceholderText(/bluebill1049@hotmail.com/i);
+    userEvent.type(email, '')
+
+    const btn = screen.getByRole('button');
+    userEvent.click(btn);
+
+    const fnameError = await screen.queryByText('Error: firstName must have at least 5 characters.')
+    const lnameError = await screen.queryByText('Error: lastName is a required field.')
+    const emailError = await screen.queryByText('Error: email must be a valid email address.')
+    expect(fnameError).toBeInTheDocument();
+    expect(lnameError).toBeInTheDocument();
+    expect(emailError).toBeInTheDocument();
 
 });
 
