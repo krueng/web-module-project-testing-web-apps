@@ -92,12 +92,10 @@ test('renders all firstName, lastName and email text when submitted. Does NOT re
     const fname = screen.getByPlaceholderText(/Edd/i);
     const lname = screen.getByPlaceholderText(/burke/i);
     const email = screen.getByPlaceholderText(/bluebill1049@hotmail.com/i);
-    // const msg = screen.getByLabelText(/message/);
 
     userEvent.type(fname, 'Fnamed')
     userEvent.type(lname, 'Lnamed')
     userEvent.type(email, 'fnamed@lnamed.io')
-    // userEvent.type(msg, '');
 
     const btn = screen.getByRole('button');
     userEvent.click(btn);
@@ -112,5 +110,27 @@ test('renders all firstName, lastName and email text when submitted. Does NOT re
 });
 
 test('renders all fields text when all fields are submitted.', async () => {
+    render(<ContactForm />);
+    const fname = screen.getByPlaceholderText(/Edd/i);
+    const lname = screen.getByPlaceholderText(/burke/i);
+    const email = screen.getByPlaceholderText(/bluebill1049@hotmail.com/i);
+    const msg = screen.getByLabelText(/message/i);
 
+    userEvent.type(fname, 'Fnamed')
+    userEvent.type(lname, 'Lnamed')
+    userEvent.type(email, 'fnamed@lnamed.io')
+    userEvent.type(msg, 'Where is Acheh?');
+
+    const btn = screen.getByRole('button');
+    userEvent.click(btn);
+
+    const txtFname = await screen.findByTestId('firstnameDisplay');
+    const txtLname = await screen.findByTestId('lastnameDisplay');
+    const txtEmail = await screen.findByTestId('emailDisplay');
+    const txtMsg = await screen.findByTestId('messageDisplay');
+
+    expect(txtFname).toHaveTextContent(/Fnamed/)
+    expect(txtLname).toHaveTextContent(/Lnamed/)
+    expect(txtEmail).toHaveTextContent(/fnamed@lnamed.io/)
+    expect(txtMsg).toHaveTextContent('Where is Acheh?')
 });
