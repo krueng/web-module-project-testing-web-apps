@@ -134,3 +134,16 @@ test('renders all fields text when all fields are submitted.', async () => {
     expect(txtEmail).toHaveTextContent(/fnamed@lnamed.io/)
     expect(txtMsg).toHaveTextContent('Where is Acheh?')
 });
+
+test('renders all input tittles', () => {
+    render(<ContactForm />);
+    const titleFname = screen.queryByText(/First Name*/i);
+    const titleLname = screen.queryByText(/Last Name*/i);
+    const titleEmail = screen.queryByText(/Email*/i);
+    const titleMsg = screen.queryByText(/Message/i);
+
+    expect(titleFname).toBeInTheDocument();
+    expect(titleLname).toBeInTheDocument();
+    expect(titleEmail).toBeInTheDocument();
+    expect(titleMsg).toBeInTheDocument();
+});
